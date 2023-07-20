@@ -61,7 +61,7 @@ class UsersServices {
             throw new Error('Usuário ou senha Errado Email');
         }
 
-        const passwordMatch = compare(password, findUser.password);
+        const passwordMatch = await compare(password, findUser.password);
         if (!passwordMatch) {
             throw new Error('Usuário ou senha Errado Pass');
         }
@@ -74,7 +74,7 @@ class UsersServices {
         const token = sign(
             { email }, secretKey, {
             subject: findUser.id,
-            expiresIn: 60 * 15,
+            expiresIn: '1h',
         });
         const refreshToken = sign(
             { email }, secretKey, {
